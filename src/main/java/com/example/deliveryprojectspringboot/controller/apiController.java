@@ -36,7 +36,10 @@ public class apiController {
     }
     //게시글 작성
     @PostMapping("/boardWrite")
-    public void boardWrite(HttpServletRequest request, HttpSession session){
+    public Boolean boardWrite(HttpServletRequest request, HttpSession session){
+        if(request == null){
+        return false;
+        }
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         BoardVO boardVO = new BoardVO();
@@ -45,10 +48,14 @@ public class apiController {
         boardVO.setLocalDateTime(LocalDateTime.now());
         boardVO.setComusermVO((ComusermVO) session.getAttribute("member"));
         boardVORepository.save(boardVO);
+        return true;
     }
     //게시글 수정
     @PutMapping("/boardEdit")
-    public void boardEdit(HttpServletRequest request){
+    public Boolean boardEdit(HttpServletRequest request){
+        if(request == null){
+            return false;
+        }
         Long id = Long.valueOf(request.getParameter("id"));
         String title = request.getParameter("title");
         String content = request.getParameter("content");
@@ -58,17 +65,23 @@ public class apiController {
             boardVO.setTitle(title);
             boardVO.setContent(content);
             boardVORepository.save(boardVO);
+            return true;
         }
+        return false;
     }
     //게시글 삭제
     @DeleteMapping("/boardDelete")
-    public void boardDelete(HttpServletRequest request){
+    public Boolean boardDelete(HttpServletRequest request){
+        if(request == null){
+            return false;
+        }
         Long id = Long.valueOf(request.getParameter("id"));
         boardVORepository.deleteById(id);
+        return true;
     }
     //신고하기
     @PostMapping("/accusation")
-    public void accusation(HttpServletRequest request, HttpSession session){
+    public Boolean accusation(HttpServletRequest request, HttpSession session){
         String accusationContent = request.getParameter("accusationContent");
         String reportedId = request.getParameter("reportedId");
         Optional<ComusermVO> OptComusermVO = comusermVORepository.findByUserId(reportedId);
@@ -83,9 +96,10 @@ public class apiController {
             comusermVO.setLev(comusermVO.getLev()+1);
             comusermVORepository.save(comusermVO);
             log.info("lev {}+1 값갱신"+comusermVO.getLev());
+            return true;
         }
         log.info("신고할사람의 정보가 없음");
-
+        return false;
 
     }
 
