@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ComusermVORepository extends JpaRepository<ComusermVO,Long> {
     ComusermVO findByIdAndPassword(Long id, String password);
 
-    Optional<ComusermVO> findByUserId(String userId);
+    ComusermVO findByUserId(String userId);
 
 
     ComusermVO findByUserIdAndPassword(String userId, String pw);

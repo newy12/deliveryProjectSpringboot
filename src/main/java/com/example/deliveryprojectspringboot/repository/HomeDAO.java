@@ -60,7 +60,7 @@ public class HomeDAO {
 		}else {
 			result = true;
 		}*/
-		return comusermVORepository.findByUserId(reqeustMap.get("id")).get();
+		return comusermVORepository.findByUserId(reqeustMap.get("id"));
 	}
 	
 	public ComusermVO checkLogin (Map<String, String> reqeustMap) {
@@ -176,7 +176,7 @@ public class HomeDAO {
 		requestMap.put("address1", address1);
 		requestMap.put("address2", address2);
 		requestMap.put("userId", (String) session.getAttribute("member"));*/
-		ComusermVO comusermVO = comusermVORepository.findByUserId(parameterMap.get("userId")).get();
+		ComusermVO comusermVO = comusermVORepository.findByUserId(parameterMap.get("userId"));
 		if(comusermVO.getUserId() != null){
 			comusermVO.setName(parameterMap.get("name"));
 			comusermVO.setTel(parameterMap.get("tel"));

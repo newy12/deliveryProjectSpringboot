@@ -309,7 +309,7 @@ public class HomeController {
 
 
 
-		ComusermVO comusermVO = comusermVORepository.findByUserId((String) session.getAttribute("member")).get();
+		ComusermVO comusermVO = comusermVORepository.findByUserId((String) session.getAttribute("member"));
 		data.put("id",comusermVO.getUserId());
 		data.put("name",comusermVO.getName());
 		data.put("tel",comusermVO.getTel());
